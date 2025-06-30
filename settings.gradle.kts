@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Social Deal"
 include(":app")
- 
+include(":core")

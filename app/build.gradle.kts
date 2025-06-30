@@ -25,6 +25,15 @@ android {
     }
 
     buildTypes {
+        debug {
+            isMinifyEnabled = false
+
+            buildConfigField(
+                type = "String",
+                name = "BASE_URL",
+                value = "\"https://media.socialdeal.nl/demo/\""
+            )
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -42,6 +51,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true // This is needed in order to get the BASE_URL as BuildConfig field
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -83,6 +93,12 @@ dependencies {
     // Unit tests bundle ->
     implementation(libs.bundles.unit.test)
 
-    // Android tests bundle ->
+    // Instrumented tests bundle ->
     implementation(libs.bundles.android.test)
+
+    // Network bundle ->
+    implementation(libs.bundles.network)
+
+    // Core module
+    implementation(project(":core"))
 }
