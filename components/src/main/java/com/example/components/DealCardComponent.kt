@@ -52,7 +52,7 @@ fun DealCardComponent(
         .padding(16.dp)
         .clickable { onDealCardClick() }) {
         Box(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
                 .height(230.dp)
                 .clip(RoundedCornerShape(16.dp))
@@ -61,7 +61,7 @@ fun DealCardComponent(
 
             IconButton(
                 onClick = onFavoriteClick,
-                modifier = modifier
+                modifier = Modifier
                     .align(Alignment.BottomEnd)
                     .padding(8.dp)
                     .size(36.dp)
@@ -74,18 +74,26 @@ fun DealCardComponent(
             }
         }
 
-        Spacer(modifier = modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(8.dp))
+
         Text(
-            text = title, style = MaterialTheme.typography.titleMedium, color = Color.Black
+            text = title,
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onBackground
         )
-        Spacer(modifier = modifier.height(12.dp))
+
+        Spacer(modifier = Modifier.height(12.dp))
+
         Text(
             text = company, style = MaterialTheme.typography.bodyMedium, color = Color.Gray
         )
+
         Text(
             text = city, style = MaterialTheme.typography.bodyMedium, color = Color.Gray
         )
-        Spacer(modifier = modifier.height(12.dp))
+
+        Spacer(modifier = Modifier.height(12.dp))
+
         Row(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically
@@ -95,7 +103,8 @@ fun DealCardComponent(
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.primary
             )
-            Spacer(modifier = Modifier.weight(1f)) // pushes next composables to the right
+
+            Spacer(modifier = Modifier.weight(1f)) // Pushes next texts to right
 
             val oldPriceFormatted =
                 context.getString(R.string.formatted_price, currencySign, oldPrice)
@@ -110,16 +119,13 @@ fun DealCardComponent(
 
             Text(
                 text = newPriceFormatted, style = MaterialTheme.typography.bodyMedium.copy(
-                    fontWeight = FontWeight.Bold, color = Color(
-                        0xFF98D5A4
-                    )
+                    fontWeight = FontWeight.Bold, color = Color(0xFF98D5A4)
                 )
             )
-
         }
 
         if (showDescription) {
-            Spacer(modifier = modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(12.dp))
             Text(
                 text = description, style = MaterialTheme.typography.bodyMedium, color = Color.Gray
             )

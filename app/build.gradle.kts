@@ -95,4 +95,7 @@ dependencies {
 
     // Core module
     implementation(project(":core"))
+
+    // Social Deals list module
+    implementation(project(":socialDealList"))
 }
