@@ -29,16 +29,13 @@ android {
             isMinifyEnabled = false
 
             buildConfigField(
-                type = "String",
-                name = "BASE_URL",
-                value = "\"https://media.socialdeal.nl/demo/\""
+                type = "String", name = "BASE_URL", value = "\"https://media.socialdeal.nl/demo/\""
             )
         }
         release {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
         }
     }
@@ -83,9 +80,6 @@ dependencies {
     // right away without generating Java stubs.
     implementation(libs.bundles.hilt)
     ksp(libs.hilt.compiler)
-
-    // UI utils bundle ->
-    implementation(libs.bundles.media)
 
     // Timber for logging ->
     implementation(libs.timber)
