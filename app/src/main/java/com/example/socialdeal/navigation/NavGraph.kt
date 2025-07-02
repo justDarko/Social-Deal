@@ -1,5 +1,6 @@
 package com.example.socialdeal.navigation
 
+import FavoritesScreen
 import HomeScreen
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -14,12 +15,10 @@ import androidx.navigation.compose.composable
 
 @Composable
 fun NavGraph(
-    navController: NavHostController,
-    modifier: Modifier
+    navController: NavHostController, modifier: Modifier
 ) {
     NavHost(
-        navController = navController,
-        startDestination = Route.HomeScreen::class.simpleName!!
+        navController = navController, startDestination = Route.HomeScreen::class.simpleName!!
     ) {
         composable(Route.HomeScreen::class.simpleName!!) {
             HomeScreen(modifier = modifier, onOpenDetails = {
@@ -30,7 +29,9 @@ fun NavGraph(
             DetailScreen(modifier = modifier, onBackPressed = { navController.popBackStack() })
         }
         composable(Route.FavoriteDealsScreen::class.simpleName!!) {
-            FavoriteScreen(modifier = modifier)
+            FavoritesScreen(modifier = modifier, onOpenDetails = {
+                navController.navigate(Route.DealDetailsScreen::class.simpleName!!)
+            })
         }
         composable(Route.SettingsScreen::class.simpleName!!) {
             SettingsScreen(modifier = modifier)
@@ -44,24 +45,11 @@ fun DetailScreen(
     modifier: Modifier, onBackPressed: () -> Unit
 ) {
     Box(
-        modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(text = "Detail",
-            modifier.clickable {
-                onBackPressed()
-            })
-    }
-}
-
-@Composable
-fun FavoriteScreen(
-    modifier: Modifier
-) {
-    Box(
         modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center
     ) {
-        Text(text = "Favorite")
+        Text(text = "Detail", modifier.clickable {
+            onBackPressed()
+        })
     }
 }
 

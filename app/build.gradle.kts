@@ -102,4 +102,7 @@ dependencies {
 
     // Social Deals list module
     implementation(project(":socialDealList"))
+
+    //Favorite Social Deals list module
+    implementation(project(":favoriteSocialDealList"))
 }
