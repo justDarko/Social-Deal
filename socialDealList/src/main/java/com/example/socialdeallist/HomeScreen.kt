@@ -38,16 +38,20 @@ fun HomeScreen(
 
             is HomeScreenViewState.SocialDealsList -> {
                 LazyColumn(modifier = Modifier.fillMaxSize()) {
-                    items(currentState.socialDealsList) { deal ->
+                    items(
+                        currentState.socialDealsList,
+                        // Using key to optimize recomposition
+                        key = { deal -> deal.id }
+                    ) { deal ->
                         DealCardComponent(
                             modifier = Modifier.fillMaxWidth(),
                             city = deal.city,
                             company = deal.company,
                             sold = deal.sold,
-                            oldPrice = deal.fromPrice,
-                            newPrice = deal.currentPrice,
+                            oldPrice = deal.oldPrice,
+                            newPrice = deal.newPrice,
                             currencySign = deal.currencySign,
-                            isFavorite = false,
+                            isFavorite = deal.isFavorite,
                             title = deal.title,
                             imageCover = {
                                 AsyncImage(
@@ -62,7 +66,8 @@ fun HomeScreen(
                                 onOpenDetails()
                             },
                             onFavoriteClick = {
-                                Timber.d("Current Deal City: ${deal.city}")
+                                Timber.d("Current Deal id: ${deal.id}")
+                                viewModel.setFavoriteSocialDeal(socialDeal = deal)
                             }
                         )
                     }
