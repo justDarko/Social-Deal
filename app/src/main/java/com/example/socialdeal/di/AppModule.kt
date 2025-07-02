@@ -5,7 +5,9 @@ import androidx.room.Room
 import com.example.core.data.local.db.SocialDealDatabase
 import com.example.core.data.local.db.SocialDealsDao
 import com.example.core.data.remote.ApiService
+import com.example.core.data.repositories.FavoriteSocialDealListRepositoryImpl
 import com.example.core.data.repositories.SocialDealListRepositoryImpl
+import com.example.core.domain.repositories.FavoriteSocialDealListRepository
 import com.example.core.domain.repositories.SocialDealListRepository
 import com.example.socialdeal.BuildConfig
 import dagger.Module
@@ -41,10 +43,15 @@ class AppModule {
     // Repositories ->
     @Provides
     fun provideSocialDealListRepository(
-        apiService: ApiService,
-        socialDealsDao: SocialDealsDao
+        apiService: ApiService, socialDealsDao: SocialDealsDao
     ): SocialDealListRepository = SocialDealListRepositoryImpl(
-        apiService = apiService,
+        apiService = apiService, socialDealsDao = socialDealsDao
+    )
+
+    @Provides
+    fun provideFavoriteSocialDealListRepository(
+        socialDealsDao: SocialDealsDao
+    ): FavoriteSocialDealListRepository = FavoriteSocialDealListRepositoryImpl(
         socialDealsDao = socialDealsDao
     )
 
