@@ -1,5 +1,6 @@
 package com.example.socialdeal.navigation
 
+import HomeScreen
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -38,21 +39,6 @@ fun NavGraph(
 }
 
 // Temporary Test Screen Composable
-@Composable
-fun HomeScreen(
-    modifier: Modifier, onOpenDetails: () -> Unit
-) {
-    Box(
-        modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(text = "Home",
-            modifier.clickable {
-                onOpenDetails()
-            })
-    }
-}
-
 @Composable
 fun DetailScreen(
     modifier: Modifier, onBackPressed: () -> Unit

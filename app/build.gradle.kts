@@ -93,6 +93,13 @@ dependencies {
     // Network bundle ->
     implementation(libs.bundles.network)
 
+    // Room dependencies ->
+    implementation(libs.bundles.room)
+    ksp(libs.room.compiler)
+
     // Core module
     implementation(project(":core"))
+
+    // Social Deals list module
+    implementation(project(":socialDealList"))
 }
