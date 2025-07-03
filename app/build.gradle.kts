@@ -99,6 +99,10 @@ dependencies {
     implementation(libs.bundles.room)
     ksp(libs.room.compiler)
 
+    // Data Store ->
+    implementation(libs.datastore.core)
+    implementation(libs.datastore.preferences)
+
     // Core module
     implementation(project(":core"))
 
@@ -110,4 +114,8 @@ dependencies {
 
     // Social Deals Details module
     implementation(project(":socialDealDetails"))
+
+    // Settings Screen module
+    implementation(project(":settingsScreen"))
+
 }

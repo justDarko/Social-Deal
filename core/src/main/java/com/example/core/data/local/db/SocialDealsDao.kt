@@ -11,13 +11,13 @@ import kotlinx.coroutines.flow.Flow
 interface SocialDealsDao {
     // Flows are used because our UI will update itself automatically
     // in case we like or dislike social deal
-    @Query("SELECT * FROM social_deal_tbl")
+    @Query("SELECT * FROM SOCIAL_DEAL_TBL")
     fun getSocialDealList(): Flow<List<SocialDealEntity>>
 
-    @Query("SELECT * FROM social_deal_tbl WHERE isFavorite = 1")
+    @Query("SELECT * FROM SOCIAL_DEAL_TBL WHERE isFavorite = 1")
     fun getFavoriteSocialDeals(): Flow<List<SocialDealEntity>>
 
-    @Query("SELECT * FROM social_deal_tbl WHERE id = :id")
+    @Query("SELECT * FROM SOCIAL_DEAL_TBL WHERE id = :id")
     fun getSocialDealById(id: String): Flow<SocialDealEntity>
 
     @Upsert

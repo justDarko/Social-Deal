@@ -1,13 +1,13 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrainsKotlin)
-    alias(libs.plugins.kotlinSymbolProcessing)
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.hiltAndroid)
+    alias(libs.plugins.kotlinSymbolProcessing)
 }
 
 android {
-    namespace = "com.example.core"
+    namespace = "com.example.settingsscreen"
     compileSdk = 35
 
     defaultConfig {
@@ -21,8 +21,7 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
         }
     }
@@ -39,29 +38,23 @@ dependencies {
     // Android core bundle ->
     implementation(libs.bundles.androidx.core)
 
+    // Hilt (DI) ->
+    implementation(libs.bundles.hilt)
+    ksp(libs.hilt.compiler)
+
+    // Compose bundle ->
+    implementation(platform(libs.compose.bom))
+    implementation(libs.bundles.compose)
+
     // Unit tests bundle ->
     implementation(libs.bundles.unit.test)
 
     // Instrumented tests bundle ->
     implementation(libs.bundles.android.test)
 
-    // Retrofit ->
-    implementation(libs.bundles.network)
-
-    // Coroutines ->
-    implementation(libs.kotlinx.coroutines.android)
-
-    // Timber for logs ->
+    // Timber for logging ->
     implementation(libs.timber)
 
-    // Room dependencies ->
-    implementation(libs.bundles.room)
-    ksp(libs.room.compiler)
-
-    // Serialization ->
-    implementation(libs.kotlinx.serialization.json)
-
-    // Data Store ->
-    implementation(libs.datastore.core)
-    implementation(libs.datastore.preferences)
+    // Core module
+    implementation(project(":core"))
 }
