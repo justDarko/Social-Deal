@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import timber.log.Timber
@@ -92,6 +93,11 @@ class SocialDealListRepositoryImpl @Inject constructor(
     }
 
     override suspend fun setFavoriteSocialDeal(socialDeal: SocialDeal) {
-        socialDealsDao.updateSocialDeal(socialDeal = socialDeal.toSocialDealEntity())
+        val currentEntity = socialDealsDao.getSocialDealById(socialDeal.id).firstOrNull()
+        currentEntity?.copy(isFavorite = socialDeal.isFavorite)?.let {
+            socialDealsDao.updateSocialDeal(
+                it
+            )
+        }
     }
 }

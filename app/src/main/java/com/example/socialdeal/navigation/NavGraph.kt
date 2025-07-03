@@ -26,7 +26,9 @@ fun NavGraph(
         }
         composable<Route.DealDetailsScreen> { backStackEntry ->
             val details: Route.DealDetailsScreen = backStackEntry.toRoute()
-            SocialDealDetailsScreen(id = details.id, modifier = modifier)
+            SocialDealDetailsScreen(id = details.id, modifier = modifier, onCardClick = {
+                navController.popBackStack()
+            })
         }
         composable<Route.FavoriteDealsScreen> {
             FavoritesScreen(modifier = modifier, onOpenDetails = { id ->
@@ -34,7 +36,9 @@ fun NavGraph(
             })
         }
         composable<Route.SettingsScreen> {
-            SettingsScreen(modifier = modifier)
+            SettingsScreen(modifier = modifier, onCurrencyChanged = {
+                navController.navigate(Route.HomeScreen)
+            })
         }
     }
 }

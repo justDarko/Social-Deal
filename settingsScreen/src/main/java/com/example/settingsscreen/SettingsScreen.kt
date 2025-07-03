@@ -22,6 +22,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 @Composable
 fun SettingsScreen(
     modifier: Modifier,
+    onCurrencyChanged: () -> Unit,
     viewModel: SettingsScreenViewModel = hiltViewModel()
 ) {
     val state = viewModel.currencyState.collectAsState()
@@ -43,6 +44,7 @@ fun SettingsScreen(
                     .fillMaxWidth()
                     .clickable {
                         viewModel.setCurrency(currency.name.uppercase())
+                        onCurrencyChanged()
                     }
                     .padding(vertical = 12.dp),
                 verticalAlignment = Alignment.CenterVertically
@@ -51,6 +53,7 @@ fun SettingsScreen(
                     selected = currency.name.uppercase() == state.value,
                     onClick = {
                         viewModel.setCurrency(currency.name.uppercase())
+                        onCurrencyChanged()
                     }
                 )
                 Spacer(modifier = Modifier.width(8.dp))

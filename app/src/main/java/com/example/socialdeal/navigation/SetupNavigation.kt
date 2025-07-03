@@ -16,11 +16,9 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import timber.log.Timber
@@ -72,19 +70,14 @@ fun SetupNavigation() {
         else -> -1
     }
 
-    // Needed for the TopAppBar for smooth scroll experience
-    val scrollBehaviour = TopAppBarDefaults.pinnedScrollBehavior()
-
     Scaffold(modifier = Modifier
-        .fillMaxSize()
-        .nestedScroll(scrollBehaviour.nestedScrollConnection),
-
+        .fillMaxSize(),
         topBar = {
             TopAppBar(title = {
                 Text(
                     text = "Social Deal"
                 )
-            }, scrollBehavior = scrollBehaviour)
+            })
         },
         bottomBar = {
             // No need to show the bottom bar when we present the Deal Details
