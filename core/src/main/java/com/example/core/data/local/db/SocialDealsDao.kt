@@ -17,6 +17,9 @@ interface SocialDealsDao {
     @Query("SELECT * FROM social_deal_tbl WHERE isFavorite = 1")
     fun getFavoriteSocialDeals(): Flow<List<SocialDealEntity>>
 
+    @Query("SELECT * FROM social_deal_tbl WHERE id = :id")
+    fun getSocialDealById(id: String): Flow<SocialDealEntity>
+
     @Upsert
     suspend fun upsertSocialDeals(socialDeals: List<SocialDealEntity>)
 

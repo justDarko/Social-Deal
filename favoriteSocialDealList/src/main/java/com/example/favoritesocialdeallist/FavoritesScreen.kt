@@ -20,7 +20,7 @@ import timber.log.Timber
 @Composable
 fun FavoritesScreen(
     modifier: Modifier = Modifier,
-    onOpenDetails: () -> Unit,
+    onOpenDetails: (String) -> Unit,
     viewModel: FavoritesScreenViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.collectAsState()
@@ -53,6 +53,7 @@ fun FavoritesScreen(
                             currencySign = deal.currencySign,
                             isFavorite = deal.isFavorite,
                             title = deal.title,
+                            description = deal.description,
                             imageCover = {
                                 AsyncImage(
                                     model = "https://media.socialdeal.nl${deal.image}",
@@ -62,11 +63,11 @@ fun FavoritesScreen(
                                 )
                             },
                             onDealCardClick = {
-                                Timber.d("Current Deal Title: ${deal.title}")
-                                onOpenDetails()
+                                Timber.d("Current Deal Id: ${deal.id}")
+                                onOpenDetails(deal.id)
                             },
                             onFavoriteClick = {
-                                Timber.d("Current Deal id: ${deal.id}")
+                                Timber.d("isFavorite: ${deal.isFavorite}")
                                 viewModel.setFavoriteSocialDeal(socialDeal = deal)
                             }
                         )

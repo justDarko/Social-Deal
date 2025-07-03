@@ -9,5 +9,6 @@ data class SocialDealDTO(
     @SerializedName("prices") val prices: PricesDTO?,
     @SerializedName("sold_label") val sold: String?,
     @SerializedName("title") val title: String?,
+    @SerializedName("description") val description: String?,
     @SerializedName("unique") val id: String
 )

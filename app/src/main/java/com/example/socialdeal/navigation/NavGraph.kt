@@ -2,7 +2,7 @@ package com.example.socialdeal.navigation
 
 import FavoritesScreen
 import HomeScreen
-import androidx.compose.foundation.clickable
+import SocialDealDetailsScreen
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
@@ -12,47 +12,37 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.toRoute
+
 
 @Composable
 fun NavGraph(
     navController: NavHostController, modifier: Modifier
 ) {
     NavHost(
-        navController = navController, startDestination = Route.HomeScreen::class.simpleName!!
+        navController = navController, startDestination = Route.HomeScreen
     ) {
-        composable(Route.HomeScreen::class.simpleName!!) {
-            HomeScreen(modifier = modifier, onOpenDetails = {
-                navController.navigate(Route.DealDetailsScreen::class.simpleName!!)
+        composable<Route.HomeScreen> {
+            HomeScreen(modifier = modifier, onOpenDetails = { id ->
+                navController.navigate(Route.DealDetailsScreen(id = id))
             })
         }
-        composable(Route.DealDetailsScreen::class.simpleName!!) {
-            DetailScreen(modifier = modifier, onBackPressed = { navController.popBackStack() })
+        composable<Route.DealDetailsScreen> { backStackEntry ->
+            val details: Route.DealDetailsScreen = backStackEntry.toRoute()
+            SocialDealDetailsScreen(id = details.id, modifier = modifier)
         }
-        composable(Route.FavoriteDealsScreen::class.simpleName!!) {
-            FavoritesScreen(modifier = modifier, onOpenDetails = {
-                navController.navigate(Route.DealDetailsScreen::class.simpleName!!)
+        composable<Route.FavoriteDealsScreen> {
+            FavoritesScreen(modifier = modifier, onOpenDetails = { id ->
+                navController.navigate(Route.DealDetailsScreen(id = id))
             })
         }
-        composable(Route.SettingsScreen::class.simpleName!!) {
+        composable<Route.SettingsScreen> {
             SettingsScreen(modifier = modifier)
         }
     }
 }
 
 // Temporary Test Screen Composable
-@Composable
-fun DetailScreen(
-    modifier: Modifier, onBackPressed: () -> Unit
-) {
-    Box(
-        modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center
-    ) {
-        Text(text = "Detail", modifier.clickable {
-            onBackPressed()
-        })
-    }
-}
-
 @Composable
 fun SettingsScreen(
     modifier: Modifier

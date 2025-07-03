@@ -3,7 +3,6 @@ package com.example.core.data.repositories
 import com.example.core.data.CustomResult
 import com.example.core.data.local.db.SocialDealsDao
 import com.example.core.data.toSocialDeal
-import com.example.core.data.toSocialDealEntity
 import com.example.core.domain.model.SocialDeal
 import com.example.core.domain.repositories.FavoriteSocialDealListRepository
 import kotlinx.coroutines.flow.Flow
@@ -23,9 +22,5 @@ class FavoriteSocialDealListRepositoryImpl @Inject constructor(
         } catch (e: Exception) {
             emit(CustomResult.Failure(e.localizedMessage ?: "Something went wrong"))
         }
-    }
-
-    override suspend fun setFavoriteSocialDeal(socialDeal: SocialDeal) {
-        socialDealsDao.updateSocialDeal(socialDeal = socialDeal.toSocialDealEntity())
     }
 }

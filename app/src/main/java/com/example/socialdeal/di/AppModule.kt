@@ -6,8 +6,10 @@ import com.example.core.data.local.db.SocialDealDatabase
 import com.example.core.data.local.db.SocialDealsDao
 import com.example.core.data.remote.ApiService
 import com.example.core.data.repositories.FavoriteSocialDealListRepositoryImpl
+import com.example.core.data.repositories.SocialDealDetailsRepositoryImpl
 import com.example.core.data.repositories.SocialDealListRepositoryImpl
 import com.example.core.domain.repositories.FavoriteSocialDealListRepository
+import com.example.core.domain.repositories.SocialDealDetailsRepository
 import com.example.core.domain.repositories.SocialDealListRepository
 import com.example.socialdeal.BuildConfig
 import dagger.Module
@@ -52,6 +54,15 @@ class AppModule {
     fun provideFavoriteSocialDealListRepository(
         socialDealsDao: SocialDealsDao
     ): FavoriteSocialDealListRepository = FavoriteSocialDealListRepositoryImpl(
+        socialDealsDao = socialDealsDao
+    )
+
+    @Provides
+    fun provideSocialDealDetailsRepository(
+        apiService: ApiService,
+        socialDealsDao: SocialDealsDao
+    ): SocialDealDetailsRepository = SocialDealDetailsRepositoryImpl(
+        apiService = apiService,
         socialDealsDao = socialDealsDao
     )
 

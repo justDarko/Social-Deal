@@ -10,7 +10,8 @@ kotlinx-coroutines-android = "1.8.1"
 lifecycle-viewmodel-ktx = "2.9.1"
 lifecycle-runtime-ktx = "2.9.1"
 
-navigation-compose = "2.9.0"
+#navigation-compose = "2.9.0"
+navigation-compose = "2.9.1"
 retrofit = "2.11.0"
 timber = "5.0.1"
 compose-ui = "1.8.3"
@@ -29,6 +30,9 @@ material = "1.12.0"
 
 
 [libraries]
+navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation-compose" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+
 activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity-compose" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil-compose" }
 
@@ -41,8 +45,6 @@ junit = { module = "junit:junit", version.ref = "junit" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
 hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt-navigation-compose" }
-
-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation-compose" }
 
 lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle-viewmodel-ktx" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines-android" }
@@ -65,7 +67,6 @@ room-runtime = { module = "androidx.room:room-runtime", version.ref = "room_vers
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "room_version" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room_version" }
 
-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
