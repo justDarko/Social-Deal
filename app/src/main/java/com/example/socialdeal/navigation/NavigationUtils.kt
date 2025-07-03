@@ -1,5 +1,6 @@
 package com.example.socialdeal.navigation
 
+// Aware that this is not the best possible solution.
 // This is a workaround. My intention was to use only Type-Safe navigation
 // with @Serializable and not use hardcoded strings like this.
 // Problem i encountered was this:

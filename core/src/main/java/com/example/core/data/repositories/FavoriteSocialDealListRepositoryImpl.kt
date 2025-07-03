@@ -64,5 +64,4 @@ class FavoriteSocialDealListRepositoryImpl @Inject constructor(
             emit(CustomResult.Failure(e.localizedMessage ?: "Something went wrong"))
         }
     }
-
 }

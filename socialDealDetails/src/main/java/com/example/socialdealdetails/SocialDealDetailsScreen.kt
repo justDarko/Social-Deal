@@ -13,6 +13,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.example.components.DealCardComponent
+import com.example.core.data.IMAGE_BASE_URL
 import com.example.socialdealdetails.SocialDealDetailsScreenViewModel
 import com.example.socialdealdetails.SocialDealDetailsScreenViewState
 import timber.log.Timber
@@ -20,6 +21,7 @@ import timber.log.Timber
 @Composable
 fun SocialDealDetailsScreen(
     id: String,
+    onCardClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: SocialDealDetailsScreenViewModel = hiltViewModel()
 ) {
@@ -58,16 +60,16 @@ fun SocialDealDetailsScreen(
                             description = deal.description,
                             imageCover = {
                                 AsyncImage(
-                                    model = "https://media.socialdeal.nl${deal.image}",
+                                    model = "$IMAGE_BASE_URL${deal.image}",
                                     contentDescription = "Deal image",
                                     modifier = Modifier.fillMaxSize(),
                                     contentScale = ContentScale.Crop
                                 )
                             },
                             onDealCardClick = {
-                                // Here, no need to do anything on deal card click.
-                                // Just Log Social Deal info
+                                // Exit the details
                                 Timber.d("Current Deal Title: ${deal.title}")
+                                onCardClick()
                             },
                             onFavoriteClick = {
                                 Timber.d("Current Deal id: ${deal.id}")

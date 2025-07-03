@@ -13,6 +13,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.example.components.DealCardComponent
+import com.example.core.data.IMAGE_BASE_URL
 import com.example.socialdeallist.HomeScreenViewModel
 import com.example.socialdeallist.HomeScreenViewState
 import timber.log.Timber
@@ -56,7 +57,7 @@ fun HomeScreen(
                             description = deal.description,
                             imageCover = {
                                 AsyncImage(
-                                    model = "https://media.socialdeal.nl${deal.image}",
+                                    model = "${IMAGE_BASE_URL}${deal.image}",
                                     contentDescription = "Deal image",
                                     modifier = Modifier.fillMaxSize(),
                                     contentScale = ContentScale.Crop
