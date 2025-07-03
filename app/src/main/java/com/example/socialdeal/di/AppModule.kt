@@ -59,25 +59,33 @@ class AppModule {
     // Repositories ->
     @Provides
     fun provideSocialDealListRepository(
-        apiService: ApiService, socialDealsDao: SocialDealsDao
+        apiService: ApiService,
+        socialDealsDao: SocialDealsDao,
+        dataStoreManager: DataStoreManager
     ): SocialDealListRepository = SocialDealListRepositoryImpl(
-        apiService = apiService, socialDealsDao = socialDealsDao
+        apiService = apiService,
+        socialDealsDao = socialDealsDao,
+        dataStoreManager = dataStoreManager
     )
 
     @Provides
     fun provideFavoriteSocialDealListRepository(
-        socialDealsDao: SocialDealsDao
+        socialDealsDao: SocialDealsDao,
+        dataStoreManager: DataStoreManager
     ): FavoriteSocialDealListRepository = FavoriteSocialDealListRepositoryImpl(
-        socialDealsDao = socialDealsDao
+        socialDealsDao = socialDealsDao,
+        dataStoreManager = dataStoreManager
     )
 
     @Provides
     fun provideSocialDealDetailsRepository(
         apiService: ApiService,
-        socialDealsDao: SocialDealsDao
+        socialDealsDao: SocialDealsDao,
+        dataStoreManager: DataStoreManager
     ): SocialDealDetailsRepository = SocialDealDetailsRepositoryImpl(
         apiService = apiService,
-        socialDealsDao = socialDealsDao
+        socialDealsDao = socialDealsDao,
+        dataStoreManager = dataStoreManager
     )
 
     @Provides
