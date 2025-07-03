@@ -2,10 +2,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -13,21 +13,26 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.example.components.DealCardComponent
-import com.example.socialdeallist.HomeScreenViewModel
-import com.example.socialdeallist.HomeScreenViewState
+import com.example.socialdealdetails.SocialDealDetailsScreenViewModel
+import com.example.socialdealdetails.SocialDealDetailsScreenViewState
 import timber.log.Timber
 
 @Composable
-fun HomeScreen(
+fun SocialDealDetailsScreen(
+    id: String,
     modifier: Modifier = Modifier,
-    onOpenDetails: (String) -> Unit,
-    viewModel: HomeScreenViewModel = hiltViewModel()
+    viewModel: SocialDealDetailsScreenViewModel = hiltViewModel()
 ) {
+    // Unit set on purpose so this
+    LaunchedEffect(Unit) {
+        Timber.d("Id inside Details Screen is: $id")
+        viewModel.getSocialDealDetails(id = id)
+    }
     val state = viewModel.state.collectAsState()
 
     Box(modifier = modifier.fillMaxSize()) {
         when (val currentState = state.value) {
-            HomeScreenViewState.Loading -> {
+            SocialDealDetailsScreenViewState.Loading -> {
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
@@ -36,13 +41,10 @@ fun HomeScreen(
                 }
             }
 
-            is HomeScreenViewState.SocialDealsList -> {
+            is SocialDealDetailsScreenViewState.SocialDealDetails -> {
+                val deal = currentState.socialDealDetails
                 LazyColumn(modifier = Modifier.fillMaxSize()) {
-                    items(
-                        currentState.socialDealsList,
-                        // Using key to optimize recomposition
-                        key = { deal -> deal.id }
-                    ) { deal ->
+                    item {
                         DealCardComponent(
                             modifier = Modifier.fillMaxWidth(),
                             city = deal.city,
@@ -63,11 +65,12 @@ fun HomeScreen(
                                 )
                             },
                             onDealCardClick = {
-                                Timber.d("Current Deal Id: ${deal.id}")
-                                onOpenDetails(deal.id)
+                                // Here, no need to do anything on deal card click.
+                                // Just Log Social Deal info
+                                Timber.d("Current Deal Title: ${deal.title}")
                             },
                             onFavoriteClick = {
-                                Timber.d("isFavorite: ${deal.isFavorite}")
+                                Timber.d("Current Deal id: ${deal.id}")
                                 viewModel.setFavoriteSocialDeal(socialDeal = deal)
                             }
                         )
@@ -75,7 +78,7 @@ fun HomeScreen(
                 }
             }
 
-            is HomeScreenViewState.Error -> {
+            is SocialDealDetailsScreenViewState.Error -> {
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center

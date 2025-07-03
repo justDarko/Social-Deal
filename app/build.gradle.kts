@@ -70,6 +70,8 @@ dependencies {
 
     // Compose navigation ->
     implementation(libs.navigation.compose)
+    implementation(libs.kotlinx.serialization.json)
+
 
     // Hilt (DI) ->
     // ksp = Kotlin Symbol Processing
@@ -103,6 +105,9 @@ dependencies {
     // Social Deals list module
     implementation(project(":socialDealList"))
 
-    //Favorite Social Deals list module
+    // Favorite Social Deals list module
     implementation(project(":favoriteSocialDealList"))
+
+    // Social Deals Details module
+    implementation(project(":socialDealDetails"))
 }

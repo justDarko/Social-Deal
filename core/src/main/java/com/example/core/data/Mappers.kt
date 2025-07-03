@@ -27,7 +27,8 @@ fun SocialDealDTO.toSocialDeal() = SocialDeal(
     sold = sold ?: "N/A",
     currencySign = prices?.price?.currency?.symbol ?: "N/A",
     image = image ?: "N/A",
-    isFavorite = false
+    isFavorite = false,
+    description = description ?: ""
 )
 
 fun SocialDeal.toSocialDealEntity() = SocialDealEntity(
@@ -53,5 +54,6 @@ fun SocialDealEntity.toSocialDeal() = SocialDeal(
     sold = sold,
     currencySign = currencySign,
     image = image,
-    isFavorite = isFavorite
+    isFavorite = isFavorite,
+    description = ""
 )

@@ -21,14 +21,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import timber.log.Timber
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SetupNavigation() {
     val navController = rememberNavController()
-
     val listOfBottomNavigationItems = listOf(
         BottomNavigationItem(
             title = "Home",
@@ -50,14 +50,25 @@ fun SetupNavigation() {
         ),
     )
 
-    val currentBackStackEntry by navController.currentBackStackEntryFlow.collectAsStateWithLifecycle(
-        null
-    )
-    val currentRoute = currentBackStackEntry?.destination?.route
-    var indexOnSelectedItem = when (currentRoute) {
-        Route.HomeScreen::class.simpleName -> 0
-        Route.FavoriteDealsScreen::class.simpleName -> 1
-        Route.SettingsScreen::class.simpleName -> 2
+    val currentBackStackEntry by navController.currentBackStackEntryAsState()
+    Timber.d("Arguments route destination: ${currentBackStackEntry?.destination?.route}")
+
+    val currentRoute = currentBackStackEntry?.destination?.route.toRoute()
+
+//    val currentRoute = currentBackStackEntry?.arguments
+//        ?.getString("route")
+//        ?.let { routeJson.decodeFromString<Route>(it) }
+
+    // Line below throws an error. Could not find solution for it.
+    // IllegalArgumentException: Polymorphic value has not been read for class null
+//    val currentRoute = currentBackStackEntry?.toRoute<Route>()
+
+    Timber.d("Current route is: $currentRoute")
+
+    val indexOnSelectedItem = when (currentRoute) {
+        is Route.HomeScreen -> 0
+        is Route.FavoriteDealsScreen -> 1
+        is Route.SettingsScreen -> 2
         else -> -1
     }
 
@@ -77,13 +88,12 @@ fun SetupNavigation() {
         },
         bottomBar = {
             // No need to show the bottom bar when we present the Deal Details
-            if (currentRoute != Route.DealDetailsScreen::class.simpleName) {
+            if (currentRoute !is Route.DealDetailsScreen) {
                 NavigationBar {
                     listOfBottomNavigationItems.forEachIndexed { index, item ->
                         NavigationBarItem(selected = indexOnSelectedItem == index, onClick = {
-                            indexOnSelectedItem = index
-                            val route = item.route::class.simpleName!!
-                            navController.navigate(route) {
+                            Timber.d("pressed route: ${item.route}")
+                            navController.navigate(item.route) {
                                 popUpTo(navController.graph.startDestinationId) {
                                     saveState = true
                                 }
@@ -106,7 +116,8 @@ fun SetupNavigation() {
                     }
                 }
             }
-        }) { contentPadding ->
+        }
+    ) { contentPadding ->
         NavGraph(
             navController = navController, modifier = Modifier
                 .fillMaxSize()

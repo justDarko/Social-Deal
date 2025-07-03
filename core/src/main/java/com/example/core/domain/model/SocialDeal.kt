@@ -10,5 +10,6 @@ data class SocialDeal(
     val title: String,
     val currencySign: String,
     val id: String,
+    val description: String,
     val isFavorite: Boolean
 )

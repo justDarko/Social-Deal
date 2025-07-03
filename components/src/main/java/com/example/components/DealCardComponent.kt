@@ -40,7 +40,6 @@ fun DealCardComponent(
     newPrice: String,
     currencySign: String = "$",
     isFavorite: Boolean,
-    showDescription: Boolean = false,
     description: String = "",
     onDealCardClick: () -> Unit,
     onFavoriteClick: () -> Unit
@@ -124,7 +123,7 @@ fun DealCardComponent(
             )
         }
 
-        if (showDescription) {
+        if (description.isNotBlank()) {
             Spacer(modifier = Modifier.height(12.dp))
             Text(
                 text = description, style = MaterialTheme.typography.bodyMedium, color = Color.Gray
